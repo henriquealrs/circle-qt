@@ -18,6 +18,7 @@ private:
 public:
     DrawExec() = delete;
     explicit DrawExec(QObject *parent, int width, int height);
+    ~DrawExec();
 
 signals:
     void signalDrawFinished(std::vector<std::vector<uint8_t>>& data);

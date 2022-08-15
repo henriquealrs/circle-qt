@@ -1,10 +1,19 @@
 #include "circle.h"
 #include <math.h>
+#include <iostream>
 
 using std::vector;
+using std::cout;
+using std::endl;
+
+Circle::~Circle()
+{
+    cout << "Circle destructor" << endl;
+}
 
 std::vector<vec2d> Circle::get_points(uint32_t n) const
 {
+    n = (int) (this->_r * 2 * M_PI);
     vector<vec2d> ret;
     ret.reserve(n);
 

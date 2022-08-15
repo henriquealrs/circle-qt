@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stdint.h>
+#include <iostream>
 
 struct vec2d {
     int x;
@@ -14,6 +15,9 @@ struct vec2d {
 class Shape {
 public:
     virtual std::vector<vec2d> get_points(uint32_t n) const = 0;
+    virtual ~Shape() {
+        std::cout << "Shape destructor\n";
+    }
 };
 
 #endif // SHAPE_H

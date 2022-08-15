@@ -19,6 +19,7 @@ public:
     ~DrawService();
 public slots:
     void slotDrawShape(std::shared_ptr<Shape>& obj);
+    void slotStopDrawExecutor();
 signals:
     void signalStartDrawing(std::shared_ptr<Shape>& obj);
     void signalDrawingFinished(std::vector<std::vector<uint8_t>>& data);

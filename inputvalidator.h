@@ -14,6 +14,7 @@ public slots:
 public:
     InputValidator() = delete;
     InputValidator(QObject *parent);
+    ~InputValidator();
 
 signals:
     void invalidInput();

@@ -47,3 +47,8 @@ InputValidator::InputValidator(QObject *parent) : QObject(parent)
 {
 
 }
+
+InputValidator::~InputValidator()
+{
+    qDebug() << "Destroying input validator\n";
+}

@@ -8,6 +8,7 @@
 #include <memory>
 #include "inputvalidator.h"
 
+class DrawService;
 class Shape;
 
 QT_BEGIN_NAMESPACE
@@ -28,14 +29,18 @@ public slots:
 private slots:
     void on_btn_add_clicked();
 
+    void on_pushButton_clicked();
+
 signals:
     void createCircle(QString x, QString y, QString r);
     void signalNewObjectAdded(std::shared_ptr<Shape>& obj);
+    void signalStop();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     QPixmap image;
     InputValidator *iv;
+    DrawService *draw_service;
 };
 #endif // MAINWINDOW_H

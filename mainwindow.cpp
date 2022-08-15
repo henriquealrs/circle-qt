@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     auto viewSize = this->ui->graphicsView->sizeHint();
     scene = new QGraphicsScene(0, 0, viewSize.width(), viewSize.height(), this);
-    std::cout << this->image.load("myimage.jpeg") << std::endl;
+
     scene->addPixmap(this->image);
 
     this->ui->graphicsView->setScene(scene);
@@ -25,8 +25,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::createCircle, iv, &InputValidator::ValidateCircleInput);
     connect(iv, &InputValidator::invalidInput, this, &MainWindow::invalidInput);
 
-    DrawService *draw_service = new DrawService(this, scene->width(), scene->height());
-    connect(draw_service, &DrawService::signalDrawingFinished, this, [draw_service, this](vector<vector<uint8_t>>& data){
+
+    draw_service = new DrawService(this, scene->width(), scene->height());
+    connect(draw_service, &DrawService::signalDrawingFinished, this, [this](vector<vector<uint8_t>>& data){
         const int width = data[0].size();
         const int height = data.size();
         vector<uint8_t> pixels(data[0].size() * data.size());
@@ -44,11 +45,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(iv, &InputValidator::draw, draw_service, &DrawService::slotDrawShape);
 
     qDebug() << "Init thread id " << QThread::currentThreadId() << "\n";
+
+    connect(this, &MainWindow::signalStop, draw_service, &DrawService::slotStopDrawExecutor);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    //delete draw_service;
 }
 
 void MainWindow::invalidInput()
@@ -77,4 +81,10 @@ void MainWindow::on_btn_add_clicked()
 }
 
 
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    emit signalStop();
+}
 
